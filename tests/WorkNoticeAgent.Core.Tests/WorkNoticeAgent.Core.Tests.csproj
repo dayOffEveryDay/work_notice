@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0</TargetFramework><IsPackable>false</IsPackable><IsTestProject>true</IsTestProject></PropertyGroup>
+  <ItemGroup>
+    <!-- Test the actual UI-only formatter without depending on WPF or the executable. -->
+    <Compile Include="../../src/WorkNoticeAgent.App/Presentation/TaiwanTimeDisplay.cs" Link="Presentation/TaiwanTimeDisplay.cs" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.1"><PrivateAssets>all</PrivateAssets></PackageReference>
+    <ProjectReference Include="../../src/WorkNoticeAgent.Core/WorkNoticeAgent.Core.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0-windows10.0.19041.0</TargetFramework><IsPackable>false</IsPackable><IsTestProject>true</IsTestProject><UseWPF>true</UseWPF></PropertyGroup>
+  <ItemGroup>
+    <Using Include="System.IO" />
+    <Compile Include="../../src/WorkNoticeAgent.App/MainViewModel.cs" Link="Presentation/MainViewModel.cs" />
+    <Compile Include="../../src/WorkNoticeAgent.App/AsyncCommand.cs" Link="Presentation/AsyncCommand.cs" />
+    <Compile Include="../../src/WorkNoticeAgent.App/Presentation/TaiwanTimeDisplay.cs" Link="Presentation/TaiwanTimeDisplay.cs" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.1"><PrivateAssets>all</PrivateAssets></PackageReference>
+    <ProjectReference Include="../../src/WorkNoticeAgent.Windows/WorkNoticeAgent.Windows.csproj" GlobalPropertiesToRemove="RuntimeIdentifier;SelfContained;PublishSingleFile;PublishTrimmed" />
+  </ItemGroup>
+</Project>

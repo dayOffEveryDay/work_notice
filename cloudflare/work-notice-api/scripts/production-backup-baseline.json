@@ -1,0 +1,27 @@
+{
+  "accountId": "2b8372ca98f3e47edbffb37a04fa5a5f",
+  "worker": "work-notice-api",
+  "versionId": "25a61ebf-935e-4b69-9b71-e7c108d11dc9",
+  "databaseName": "work-notice-db",
+  "databaseId": "27e8ee1c-bcb7-4ee5-94d7-40c589480395",
+  "compatibilityDate": "2026-11-02",
+  "vars": {
+    "ALLOWED_DEVICE_IDS": "home-windows",
+    "ALLOWED_TELEGRAM_AUMIDS": "Telegram.TelegramDesktop",
+    "FCM_PROJECT_ID": "work-notice-7a5e8"
+  },
+  "secretNames": ["ADMIN_API_KEY", "AGENT_HMAC_SECRET", "FCM_SERVICE_ACCOUNT_JSON", "FCM_TOKEN_ENCRYPTION_KEY"],
+  "migrations": [
+    {"id": 1, "name": "0001_init.sql", "applied_at": "2026-11-02 07:36:41"},
+    {"id": 2, "name": "0002_android_fcm.sql", "applied_at": "2026-11-02 14:10:44"}
+  ],
+  "migrationHashes": {
+    "0001_init.sql": "f2cee7b6a0d6af65e76d3c13f3e0b91b52dcd2c2b1221d03a90e2a87b023e3c9",
+    "0002_android_fcm.sql": "cb3d2f152275fa336ad7c9b5a78cb87546d6a7d4d61e700fedaffc9824b6d067",
+    "0003_scheduled_activation.sql": "65faa1a1817e051e2e58d814065a5dd0b5a95a707bdb63b0f3412618f9fdd303"
+  },
+  "counts": {
+    "agents": 1, "alert_events": 68, "alert_settings": 1,
+    "android_devices": 1, "mobile_pairings": 1, "mobile_acks": 90, "push_jobs": 61
+  }
+}

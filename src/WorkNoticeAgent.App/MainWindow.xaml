@@ -1,0 +1,68 @@
+<Window x:Class="WorkNoticeAgent.App.MainWindow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:presentation="clr-namespace:WorkNoticeAgent.App.Presentation"
+ Title="Work Notice Agent" Icon="Assets/Standby.ico" Width="960" Height="730" MinWidth="760" MinHeight="600" Background="#F4F6FA">
+ <Window.Resources>
+  <presentation:TaiwanTimeConverter x:Key="TaiwanTime"/>
+  <Style TargetType="Button"><Setter Property="Padding" Value="12,7"/><Setter Property="Margin" Value="0,4,8,4"/></Style>
+  <Style TargetType="TextBlock"><Setter Property="Margin" Value="0,3"/></Style>
+ </Window.Resources>
+ <Grid Margin="24">
+  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+  <StackPanel Margin="0,0,0,12">
+   <TextBlock Text="Work Notice Agent" FontSize="20" FontWeight="SemiBold"/>
+   <TextBlock Text="{Binding Mode}" FontSize="34" FontWeight="Bold" Foreground="#174D69"/>
+   <WrapPanel><TextBlock Text="通知授權："/><TextBlock Text="{Binding Access}" Margin="0,3,24,3"/><TextBlock Text="監聽器："/><TextBlock Text="{Binding Health}"/></WrapPanel>
+  </StackPanel>
+  <TabControl Grid.Row="1" Background="White">
+   <TabItem Header="監控總覽"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="20">
+    <WrapPanel><Button Content="切換監控中" Command="{Binding Monitor}"/><Button Content="切換待命中" Command="{Binding Standby}"/></WrapPanel>
+    <TextBlock Text="通知來源" FontSize="17" FontWeight="Bold" Margin="0,16,0,6"/>
+    <TextBlock Text="Telegram" FontWeight="Bold"/><TextBlock Text="{Binding TelegramStatus}" TextWrapping="Wrap"/>
+    <TextBlock Text="{Binding ConfirmedSource}" Foreground="#536078" TextWrapping="Wrap"/>
+    <TextBlock Text="Lark A（Chrome）" FontWeight="Bold" Margin="0,12,0,3"/><TextBlock Text="{Binding ChromeStatus}" TextWrapping="Wrap"/>
+    <TextBlock Text="Lark B（Brave）" FontWeight="Bold" Margin="0,12,0,3"/><TextBlock Text="{Binding BraveStatus}" TextWrapping="Wrap"/>
+    <TextBlock Text="來源開關與信任映射請至「進階設定／通知來源管理」。三個來源共用雲端傳送流程；Lark 需先更新 Worker 並設定對應白名單。" TextWrapping="Wrap" Foreground="#536078" Margin="0,12,0,12"/>
+    <Separator/><TextBlock Text="雲端連線" FontSize="17" FontWeight="Bold"/><TextBlock Text="{Binding CloudMessage}" TextWrapping="Wrap"/>
+    <WrapPanel><TextBlock Text="最近成功心跳："/><TextBlock Text="{Binding LastHeartbeat}"/></WrapPanel>
+    <WrapPanel><TextBlock Text="最近雲端事件："/><TextBlock Text="{Binding LastCloudAlert}"/></WrapPanel>
+    <WrapPanel><TextBlock Text="最近本機工作事件："/><TextBlock Text="{Binding LastEvent}"/></WrapPanel>
+   </StackPanel></ScrollViewer></TabItem>
+   <TabItem Header="進階設定／通知來源管理"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="20">
+    <WrapPanel><Button Content="申請通知權限" Command="{Binding RequestAccess}"/><Button Content="重新掃描／重試監聽" Command="{Binding Refresh}"/></WrapPanel>
+    <TextBlock Text="Telegram 來源辨識" FontSize="17" FontWeight="Bold"/>
+    <TextBlock Text="請用真正的 Telegram Windows 通知確認 AUMID；只比對已確認的完整 AUMID，未知來源不會自動視為 Telegram。" TextWrapping="Wrap"/>
+    <DockPanel><Button DockPanel.Dock="Right" Content="確認為 Telegram" Command="{Binding ConfirmSource}" Margin="8,0,0,0"/><ComboBox ItemsSource="{Binding Sources}" SelectedItem="{Binding SelectedSource}" MinHeight="32"/></DockPanel>
+    <TextBlock Text="{Binding ConfirmedSource}" TextWrapping="Wrap"/>
+    <CheckBox Content="啟用 Telegram（按下方儲存才生效）" IsChecked="{Binding TelegramEnabled}" Margin="0,8"/>
+    <TextBlock Text="使用者信任的瀏覽器來源映射" FontSize="17" FontWeight="Bold" Margin="0,16,0,6"/>
+    <TextBlock Text="請分別在 Chrome／Brave 產生 Lark 系統通知，再選擇實際觀察到的 AUMID。Windows 中繼資料無法可靠確認網站來源；信任映射代表該 AUMID 的其他網站通知也可能被視為 Lark。三個來源不可共用相同 AUMID。" TextWrapping="Wrap" Foreground="#9E381E"/>
+    <CheckBox Content="啟用 Lark A（Chrome）" IsChecked="{Binding ChromeEnabled}" Margin="0,8"/><ComboBox ItemsSource="{Binding Sources}" SelectedItem="{Binding ChromeSource}" MinHeight="32"/>
+    <CheckBox Content="啟用 Lark B（Brave）" IsChecked="{Binding BraveEnabled}" Margin="0,8"/><ComboBox ItemsSource="{Binding Sources}" SelectedItem="{Binding BraveSource}" MinHeight="32"/>
+    <Button Content="儲存開關並信任所選瀏覽器映射" Command="{Binding SaveSources}" HorizontalAlignment="Left"/>
+    <TextBlock Text="真正變更來源或開關後會切回待命並重建基線，避免補發舊通知；重複確認相同 Telegram AUMID 不影響監控。停用不會刪除已確認的來源。" TextWrapping="Wrap"/>
+    <Expander Header="雲端設定（金鑰以目前 Windows 使用者 DPAPI 加密）" Margin="0,16,0,6"><StackPanel>
+     <TextBlock Text="Worker HTTPS 根網址"/><TextBox Text="{Binding WorkerEndpoint, UpdateSourceTrigger=PropertyChanged}"/>
+     <WrapPanel Margin="0,4,0,0"><TextBlock Text="deviceId："/><TextBox Width="170" Text="{Binding CloudDeviceId, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,12,0"/><TextBlock Text="Agent Secret："/><PasswordBox x:Name="CloudSecret" Width="230" ToolTip="留空會保留已儲存的金鑰；不可填入 ADMIN_API_KEY。"/></WrapPanel>
+     <WrapPanel><Button Content="安全儲存雲端設定" Click="SaveCloud_Click"/><Button Content="測試已儲存的連線" Command="{Binding TestCloud}"/></WrapPanel>
+    </StackPanel></Expander>
+   </StackPanel></ScrollViewer></TabItem>
+   <TabItem Header="診斷與最近通知"><Grid Margin="12">
+    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+    <StackPanel><TextBlock Text="最近偵測紀錄（最多 200 筆；台灣時間；不含訊息本文）" FontWeight="Bold"/><TextBlock Text="來源忽略表示未符合已確認且啟用的來源映射，不會自動視為 Telegram。" TextWrapping="Wrap"/><Button Content="重新掃描／重試監聽" Command="{Binding Refresh}" HorizontalAlignment="Left"/></StackPanel>
+    <DataGrid Grid.Row="1" ItemsSource="{Binding Events}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,6,0,0"><DataGrid.Columns>
+     <DataGridTextColumn Header="偵測時間（台灣）" Binding="{Binding Time, Converter={StaticResource TaiwanTime}, Mode=OneWay}" Width="205"/>
+     <DataGridTextColumn Header="來源" Binding="{Binding Notification.DisplayName}" Width="100"/>
+     <DataGridTextColumn Header="AUMID" Binding="{Binding Notification.SourceAppId}" Width="*"/>
+     <DataGridTextColumn Header="ID" Binding="{Binding Notification.Id}" Width="60"/>
+     <DataGridTextColumn Header="結果" Binding="{Binding Result}" Width="140"/>
+    </DataGrid.Columns></DataGrid>
+   </Grid></TabItem>
+  </TabControl>
+  <StackPanel Grid.Row="2" Margin="0,12,0,0">
+   <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Foreground="#9E381E"/>
+   <TextBlock Text="關閉視窗仍在系統匣執行；請用系統匣「結束程式」退出。睡眠恢復後先重建通知基線。" TextWrapping="Wrap"/>
+  </StackPanel>
+ </Grid>
+</Window>

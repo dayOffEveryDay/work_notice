@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+ xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+ xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+ xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+ IgnorableNamespaces="uap uap3 rescap">
+ <Identity Name="WorkNoticeAgent" Publisher="CN=WorkNoticeAgent.Dev" Version="1.0.1.0" ProcessorArchitecture="x64" />
+ <Properties><DisplayName>Work Notice Agent</DisplayName><PublisherDisplayName>Work Notice Agent</PublisherDisplayName><Logo>Assets\StoreLogo.png</Logo></Properties>
+ <Dependencies><TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.22000.0" MaxVersionTested="10.0.26100.0" /></Dependencies>
+ <Resources><Resource Language="zh-TW" /></Resources>
+ <Applications>
+  <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Windows.FullTrustApplication">
+   <uap:VisualElements DisplayName="Work Notice Agent" Description="Telegram Windows 通知本機監聽工具" BackgroundColor="#174D69"
+    Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" />
+  </Application>
+ </Applications>
+ <Capabilities>
+  <Capability Name="internetClient" />
+  <uap3:Capability Name="userNotificationListener" />
+  <rescap:Capability Name="runFullTrust" />
+ </Capabilities>
+</Package>

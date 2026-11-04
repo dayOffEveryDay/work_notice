@@ -1,0 +1,7 @@
+{
+  "backupDirectory": "20261103-191044-940e277453194c0abc1a4337be656530",
+  "sqlSha256": "d33403aed9bcc6fc2b3efafe55c6f8522943a583e456e80f73bdded4984d9091",
+  "acceptedBackupWindowDrift": [{"table": "request_nonces", "expected": 5, "actual": 6}],
+  "reviewBasis": "User reviewed and accepted only the original pre-export to SQL-snapshot nonce 5-to-6 drift. No other historical difference is accepted.",
+  "remoteExecutionRequiresSeparateConfirmation": true
+}

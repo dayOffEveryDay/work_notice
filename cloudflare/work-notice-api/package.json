@@ -1,0 +1,28 @@
+{
+  "name": "work-notice-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "wrangler dev --local --ip 127.0.0.1",
+    "build": "tsc",
+    "bundle:test": "node scripts/bundle-test.mjs",
+    "test:b1": "npm run build && npm run bundle:test && node --test tests/b1-upgrade.test.mjs",
+    "test": "npm run build && npm run bundle:test && node --test tests/*.test.mjs",
+    "test:local": "npm run build && node scripts/test-local.mjs",
+    "test:agent": "npm run build && npm run deploy:dry-run && node scripts/test-agent-integration.mjs",
+    "db:list:local": "wrangler d1 migrations list DB --local",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local",
+    "deploy:dry-run": "wrangler deploy --dry-run --outdir .build/worker"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261102.1",
+    "esbuild": "0.28.2",
+    "miniflare": "5.20261101.0-beta",
+    "typescript": "7.0.2",
+    "wrangler": "4.156.1"
+  }
+}

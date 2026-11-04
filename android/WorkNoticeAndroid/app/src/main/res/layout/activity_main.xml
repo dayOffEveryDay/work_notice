@@ -1,0 +1,71 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+    <TextView android:id="@+id/page_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Work Notice" android:textSize="28sp" android:textStyle="bold" />
+    <LinearLayout android:id="@+id/alarm_controls" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+      <TextView android:id="@+id/current_alarm" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingTop="20dp" android:text="目前未響鈴" />
+      <Button android:id="@+id/stop" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="停止目前正在播放的警報" android:textSize="22sp" android:textColor="#FFFFFF" android:backgroundTint="#B42318" android:minHeight="64dp" />
+    </LinearLayout>
+    <Button android:id="@+id/settings_entry" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="設定" />
+    <Button android:id="@+id/nav_device" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="裝置與配對" />
+    <Button android:id="@+id/nav_alerts" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="通知與警報" />
+    <Button android:id="@+id/nav_windows" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Windows 監控" />
+    <Button android:id="@+id/nav_diagnostics" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="測試與診斷" />
+    <LinearLayout android:id="@+id/panel_home" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp" android:background="?android:attr/colorBackground" android:layout_marginTop="16dp">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="目前工作警報狀態" android:textSize="20sp" android:textStyle="bold" android:paddingTop="0dp" />
+        <TextView android:id="@+id/mode_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="工作警報已關閉" android:textSize="26sp" android:textStyle="bold" android:paddingTop="8dp" android:accessibilityLiveRegion="polite" />
+        <TextView android:id="@+id/setting_status" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+          <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="幾小時後（0～24）" android:labelFor="@id/hours" />
+            <EditText android:id="@+id/hours" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="空白視為 0" android:inputType="number" android:text="2" android:singleLine="true" android:imeOptions="actionDone" />
+          </LinearLayout>
+          <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="分鐘（0～59）" android:labelFor="@id/minutes" />
+            <EditText android:id="@+id/minutes" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="空白視為 0" android:inputType="number" android:text="30" android:singleLine="true" android:imeOptions="actionDone" />
+          </LinearLayout>
+        </LinearLayout>
+        <Button android:id="@+id/timed" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="預約啟用（以上時間後開始）" />
+        <Button android:id="@+id/continuous" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="立即啟用" />
+        <Button android:id="@+id/disable" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="結束本次監控（不停止目前鈴聲）" />
+        <TextView android:id="@+id/setting_feedback" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="設定成功前，以目前確認的狀態為準。" android:textColor="?android:attr/textColorPrimary" android:paddingTop="8dp" android:accessibilityLiveRegion="polite" />
+      </LinearLayout>
+      <Button android:id="@+id/monitor_retry" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="重試／同步未確認命令" />
+      <TextView android:id="@+id/home_windows" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Windows：尚無已確認資料" />
+      <Button android:id="@+id/repair_windows" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="查看 Windows 狀態／重新整理" />
+      <TextView android:id="@+id/home_fsi" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="鎖屏警報：尚未準備" />
+      <Button android:id="@+id/repair_fsi" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="檢查鎖屏警報設定" />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/panel_device" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+      <TextView android:id="@+id/connection" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="未配對" android:paddingTop="12dp" />
+      <EditText android:id="@+id/pairing_code" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="一次性配對碼" android:inputType="textVisiblePassword" android:importantForAutofill="no" android:singleLine="true" />
+      <Button android:id="@+id/pair" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="配對手機" />
+      <Button android:id="@+id/unpair" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="撤銷並取消配對" />
+      <TextView android:id="@+id/device_fcm" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="FCM 登錄：尚未確認" />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/panel_alerts" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+      <TextView android:id="@+id/fsi_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="鎖屏全螢幕警報（實驗功能）：關閉" />
+      <Button android:id="@+id/fsi_enable" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="宣告緊急用途並啟用全螢幕實驗" />
+      <Button android:id="@+id/fsi_disable" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="關閉全螢幕實驗（不停止目前響鈴）" />
+      <Button android:id="@+id/fsi_channel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="緊急工作警報頻道設定" />
+      <TextView android:id="@+id/permissions" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingTop="20dp" />
+      <Button android:id="@+id/request_permission" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="要求通知權限／開啟通道設定" />
+      <Button android:id="@+id/work_channel_settings" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="工作通知的聲音與震動設定" />
+      <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="背景、鎖屏、Doze、強制停止、缺少 Google Play Services 或 FCM 降權可能延遲或阻止響鈴。請保留通知權限並檢查警報音量及勿擾設定；不保證即時必達。通知 fallback 請開啟 App 檢查。" android:paddingTop="16dp" />
+      <Button android:id="@+id/fsi_system" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Android 全螢幕通知系統權限" />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/panel_windows" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+      <TextView android:id="@+id/windows_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Windows 狀態：尚未更新" android:paddingTop="20dp" android:textSize="17sp" />
+      <Button android:id="@+id/refresh" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="重新整理 Windows 狀態" />
+      <Switch android:id="@+id/offline_alerts" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Windows 異常離線一般提醒" android:checked="true" android:padding="8dp" />
+      <Button android:id="@+id/save_offline" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="儲存離線提醒設定" />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/panel_diagnostics" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+      <Button android:id="@+id/test_sound" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="只測本機聲音（不經 TG／Worker／FCM）" />
+      <TextView android:id="@+id/version_info" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" />
+      <TextView android:id="@+id/advanced_info" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" />
+    </LinearLayout>
+    <TextView android:id="@+id/operation_feedback" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" />
+    <TextView android:id="@+id/result" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="8dp" android:textColor="?android:attr/textColorPrimary" />
+  </LinearLayout>
+</ScrollView>

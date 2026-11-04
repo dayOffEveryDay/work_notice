@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "work-notice-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-02",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "work-notice-db",
+      "database_id": "27e8ee1c-bcb7-4ee5-94d7-40c589480395",
+      "migrations_dir": "migrations",
+      "remote": false
+    }
+  ],
+  "observability": { "enabled": false },
+  "vars": { "ALLOWED_DEVICE_IDS": "home-windows", "ALLOWED_TELEGRAM_AUMIDS": "Telegram.TelegramDesktop", "ALLOWED_LARK_A_CHROME_AUMIDS": "Chrome", "ALLOWED_LARK_B_BRAVE_AUMIDS": "Brave", "FCM_PROJECT_ID": "work-notice-7a5e8" },
+  "triggers": { "crons": ["* * * * *"] }
+}
